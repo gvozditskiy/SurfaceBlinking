@@ -73,11 +73,10 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
     private void drawGrid(Canvas canvas) {
         final Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.GRAY);
-        gridLines = getLines(mStep);
         canvas.drawColor(Color.WHITE);
         paint.setStrokeWidth(2);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.GRAY);
         canvas.drawLines(gridLines, paint);
     }
 
@@ -85,22 +84,18 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         final List<Float> floatList = new ArrayList<>();
         int right = this.getRight();
         int bottom = this.getBottom();
-        int i = 0;
         for (int x = 0; x < right; x += step) {
                 floatList.add((float) x);
                 floatList.add(0f);
                 floatList.add((float) x);
                 floatList.add((float) bottom);
-            i++;
 
         }
-        i = 0;
         for (int y = 0; y < bottom; y += step) {
                 floatList.add(0f);
                 floatList.add((float) y);
                 floatList.add((float) right);
                 floatList.add((float) y);
-            i++;
         }
 
         float[] rez = new float[floatList.size()];
@@ -114,6 +109,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         holder = surfaceHolder;
+        gridLines = getLines(mStep);
         canvas = surfaceHolder.lockCanvas();
         drawGrid(canvas);
         surfaceHolder.unlockCanvasAndPost(canvas);
